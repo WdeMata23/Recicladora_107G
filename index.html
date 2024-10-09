@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .container {
             background-color: white;
             padding: 30px;
@@ -46,6 +47,7 @@
             flex-direction: column;
             gap: 16px;
         }
+
         input, select {
             padding: 12px;
             font-size: 16px;
@@ -161,11 +163,11 @@
 
         // Cargar las imágenes de los supermercados
         var supermercados = [
-            { name: "La Torre", img: "LaTorre.png" },
-            { name: "Despensa Familiar", img: "Despensa.png" },
-            { name: "Suma", img: "Suma.png" },
-            { name: "Walmart", img: "Walmart.png" },
-            { name: "Maxi Despensa", img: "Maxi.jpg" }
+            { name: "", img: "LaTorre.png" },
+            { name: " ", img: "Despensa.png" },
+            { name: "", img: "Suma.png" },
+            { name: "", img: "Walmart.png" },
+            { name: " ", img: "Maxi.jpg" }
         ];
 
         // Crear un array de promesas para cargar todas las imágenes
@@ -218,26 +220,29 @@
                 doc.text(`Tipo de Material: ${tipoMaterial}`, 20, 100);
                 doc.text(`Valor Equivalente: Q${valorEquivalente}`, 20, 110);
 
-                // Añadir tabla de supermercados afiliados
-                var startX = 20;
-                var startY = 130;
-                var rowHeight = 15;
-                var colWidths = [80];
-
-                // Encabezado de la tabla
+                // Añadir título de supermercados afiliados
                 doc.setFont("times", "bold");
-                doc.setFontSize(12);
-                doc.setFillColor(100, 149, 237); // Color azul para el encabezado
-                doc.rect(startX, startY, colWidths[0] + 30, rowHeight, "FD");
-                doc.text("Supermercados afiliados", startX + 5, startY + 10);
+                doc.setFontSize(16);
+                doc.text("Supermercados afiliados", 70, 130);
 
-                // Añadir las filas de la tabla con nombres e imágenes
-                imagenesListas.forEach(function(s, index) {
-                    var posY = startY + (index + 1) * rowHeight;
-                    doc.rect(startX, posY, colWidths[0] + 30, rowHeight);  // Dibujar la celda
-                    doc.addImage(s.img, 'PNG', startX + 2, posY + 2, 12, 12); // Añadir la imagen
-                    doc.text(s.name, startX + 20, posY + 10); // Añadir el nombre del supermercado
-                });
+                // Posiciones iniciales y configuración para las imágenes
+                var imgHeight = 30; // Altura de cada imagen
+                var imgWidth = 50;  // Ancho de cada imagen
+                var spacingX = 20;  // Espaciado horizontal entre imágenes
+                var spacingY = 15;  // Espaciado vertical entre filas
+
+                // Primera fila (2 imágenes)
+                var startX1 = 30;  // Mover hacia la izquierda
+                var startY1 = 140;
+                doc.addImage(imagenesListas[0].img, 'PNG', startX1, startY1, imgWidth, imgHeight);
+                doc.addImage(imagenesListas[1].img, 'PNG', startX1 + imgWidth + spacingX, startY1, imgWidth, imgHeight);
+
+                // Segunda fila (3 imágenes, ajustar para que no se salga)
+                var startX2 = 10; // Mover más hacia la izquierda
+                var startY2 = startY1 + imgHeight + spacingY;
+                doc.addImage(imagenesListas[2].img, 'PNG', startX2, startY2, imgWidth, imgHeight);
+                doc.addImage(imagenesListas[3].img, 'PNG', startX2 + imgWidth + spacingX, startY2, imgWidth, imgHeight);
+                doc.addImage(imagenesListas[4].img, 'PNG', startX2 + 2 * (imgWidth + spacingX), startY2, imgWidth, imgHeight);
 
                 // Incrementar correlativo
                 correlativo++;
